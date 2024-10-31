@@ -1,0 +1,22 @@
+<div class="gallery-container">
+  <div class="filter-container">
+    <label for="authorSelect">Filter by Author:</label>
+    <select id="authorSelect" [(ngModel)]="selectedAuthor" (change)="filterImages()">
+      <option value="All">All</option>
+      <option *ngFor="let author of authors" [value]="author">{{ author }}</option>
+    </select>
+  </div>
+
+  <div class="gallery">
+    <div *ngFor="let image of paginatedImages" class="image">
+      <img [src]="image.download_url" [alt]="image.author" />
+      <p>{{ image.author }}</p>
+    </div>
+  </div>
+
+  <div class="pagination-controls">
+    <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+    <span>Page {{ currentPage }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= filteredImages.length">Next</button>
+  </div>
+</div>
